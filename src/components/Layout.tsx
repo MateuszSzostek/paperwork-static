@@ -28,6 +28,8 @@ w-16 h-16 mr-2
 `;
 
 export default function Layout({ children }) {
+    console.log(process.env.GATSBY_CONTENTFUL_SPACE_ID);
+    console.log(process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN);
     const intl = useIntl();
     const { themeMode } = useSelector(uiSelector);
 

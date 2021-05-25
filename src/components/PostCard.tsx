@@ -51,7 +51,9 @@ const PostCard: React.FC<Props> = ({
                     <span className="post-date">{date}</span>
                 </div>
                 <div className="description">
-                    <p className="post-desc">{desc}</p>
+                    <p dir="rtl" className="post-desc">
+                        {desc}
+                    </p>
                 </div>
                 <Link className="post-slug" to={slug}>
                     Read

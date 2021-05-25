@@ -32,6 +32,7 @@
     "gatsby-awesome-pagination": "^0.3.6",
     "gatsby-image": "^3.0.0",
     "gatsby-plugin-firebase": "^0.2.0-beta.4",
+    "gatsby-plugin-gatsby-cloud": "^2.6.0",
     "gatsby-plugin-google-analytics": "^3.0.0",
     "gatsby-plugin-google-gtag": "^3.1.0",
     "gatsby-plugin-image": "^1.0.0",
