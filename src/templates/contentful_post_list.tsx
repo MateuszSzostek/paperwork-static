@@ -3,6 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import Head from "../components/Head";
 import PostCard from "../components/PostCard";
+import { useIntl } from "gatsby-plugin-react-intl";
 
 export const query = graphql`
     query {
@@ -13,8 +14,11 @@ export const query = graphql`
                     date(formatString: "MMMM Do, YYYY")
                     slug
                     title
+                    arabicTitle
                     description
+                    arabicDescription
                     author
+                    arabicAuthor
                     picture {
                         gatsbyImageData(layout: FULL_WIDTH)
                     }
@@ -26,6 +30,7 @@ export const query = graphql`
 
 const contentful_post_list: React.FC = (props) => {
     const posts = props.data.allContentfulBlogPost.edges;
+    const intl = useIntl();
     return (
         <Layout>
             <Head
@@ -36,7 +41,7 @@ const contentful_post_list: React.FC = (props) => {
             />
             <div className="blog-list-container ">
                 <h2 className="font-semibold my-1 text-center post-list-title">
-                    Blog
+                    {intl.formatMessage({ id: "blog" })}
                 </h2>
 
                 <div className="sm:col-span-12 md:col-span-12 lg:col-span-8">
@@ -50,6 +55,9 @@ const contentful_post_list: React.FC = (props) => {
                             desc={s.node.description}
                             date={s.node.date}
                             author={s.node.author}
+                            arabicAuthor={s.node.arabicAuthor}
+                            arabicDesc={s.node.arabicDescription}
+                            arabicTitle={s.node.arabicTitle}
                         />
                     ))}
                 </div>

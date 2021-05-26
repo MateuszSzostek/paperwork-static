@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby-plugin-react-intl";
+import { useIntl, Link } from "gatsby-plugin-react-intl";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 interface Props {
@@ -10,6 +10,9 @@ interface Props {
     date: string;
     slug: string;
     author: string;
+    arabicAuthor: string;
+    arabicTitle: string;
+    arabicDesc: string;
 }
 
 const PostCard: React.FC<Props> = ({
@@ -19,7 +22,11 @@ const PostCard: React.FC<Props> = ({
     slug,
     image,
     author,
+    arabicAuthor,
+    arabicTitle,
+    arabicDesc,
 }) => {
+    const intl = useIntl();
     return (
         <>
             <div className="card-wrapper mx-10px">
@@ -30,19 +37,37 @@ const PostCard: React.FC<Props> = ({
                         className="post-list-image"
                     />
                 </div>
-                <div className="post-title">{title}</div>
-                <div className="post-info">
-                    <span className="post-author">{author}</span>
-                    <span className="post-date">{date}</span>
+                <div
+                    dir={intl.locale == "ar" ? "rtl" : ""}
+                    className="post-title"
+                >
+                    {intl.locale == "ar" ? arabicTitle : title}
                 </div>
+
+                <p
+                    style={{ margin: "3px 0px 3px 0px" }}
+                    dir={intl.locale == "ar" ? "rtl" : ""}
+                    className="post-author"
+                >
+                    {intl.locale == "ar" ? arabicAuthor : author}
+                </p>
+                <p dir={intl.locale == "ar" ? "rtl" : ""} className="post-date">
+                    {date}
+                </p>
+
                 <div className="description">
-                    <p dir="rtl" className="post-desc">
-                        {desc}
+                    <p
+                        dir={intl.locale == "ar" ? "rtl" : ""}
+                        className="post-desc"
+                    >
+                        {intl.locale == "ar" ? arabicDesc : desc}
                     </p>
                 </div>
-                <Link className="post-slug" to={slug}>
-                    Read
-                </Link>
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <Link className="post-slug" to={slug}>
+                        {intl.formatMessage({ id: "read" })}
+                    </Link>
+                </div>
             </div>
         </>
     );

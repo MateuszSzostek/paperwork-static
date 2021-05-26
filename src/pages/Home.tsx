@@ -18,12 +18,15 @@ const Home: React.FC = ({}) => {
                 edges {
                     node {
                         name
+                        arabicName
                         description
+                        arabicDescription
                         photo {
                             gatsbyImageData
                             title
                         }
                         role
+                        arabicRole
                     }
                 }
             }
@@ -31,6 +34,7 @@ const Home: React.FC = ({}) => {
                 edges {
                     node {
                         title
+                        arabicTitle
                         picture {
                             gatsbyImageData
                         }
@@ -41,9 +45,13 @@ const Home: React.FC = ({}) => {
                 description {
                     description
                 }
+                arabicDescription {
+                    arabicDescription
+                }
             }
         }
     `);
+    const intl = useIntl();
     /*
     const landingImage = data.contentfulLandingImage.picture.gatsbyImageData;
     const landingAlt = data.contentfulLandingImage.altAttribute;
@@ -55,12 +63,22 @@ const Home: React.FC = ({}) => {
     */
     const projects = data.allContentfulProject.edges.map((s, idx) => (
         <div key={idx} className="w3-col l3 m6 w3-margin-bottom">
-            <div className="w3-display-container">
+            <div
+                style={
+                    intl.locale == "ar"
+                        ? {
+                              display: "flex",
+                              justifyContent: "flex-end",
+                          }
+                        : {}
+                }
+                className="w3-display-container"
+            >
                 <div
                     style={{ zIndex: 100 }}
                     className="w3-display-topleft w3-black w3-padding"
                 >
-                    {s.node.title}
+                    {intl.locale == "ar" ? s.node.arabicTitle : s.node.title}
                 </div>
 
                 <GatsbyImage
@@ -78,17 +96,25 @@ const Home: React.FC = ({}) => {
                 alt={"Sample Work"}
                 image={s.node.photo.gatsbyImageData}
             />
-            <h3>{s.node.name}</h3>
-            <p className="w3-opacity">{s.node.role}</p>
-            <p>{s.node.description}</p>
+            <h3 dir={intl.locale == "ar" ? "rtl" : ""}>
+                {intl.locale == "ar" ? s.node.arabicName : s.node.name}
+            </h3>
+            <p dir={intl.locale == "ar" ? "rtl" : ""} className="w3-opacity">
+                {intl.locale == "ar" ? s.node.arabicRole : s.node.role}
+            </p>
+            <p dir={intl.locale == "ar" ? "rtl" : ""}>
+                {intl.locale == "ar"
+                    ? s.node.arabicDescription
+                    : s.node.description}
+            </p>
             <p>
                 <button className="w3-button w3-light-grey w3-block">
-                    Contact
+                    {intl.formatMessage({ id: "sendMessage" })}
                 </button>
             </p>
         </div>
     ));
-    const intl = useIntl();
+
     return (
         <Layout>
             <Head
@@ -104,7 +130,6 @@ const Home: React.FC = ({}) => {
                     id="home"
                 >
                     {" "}
-                    X
                 </header>
 
                 <div
@@ -112,65 +137,95 @@ const Home: React.FC = ({}) => {
                     style={{ maxWidth: "1564px" }}
                 >
                     <div className="w3-container w3-padding-32" id="projects">
-                        <h3 className="w3-border-bottom w3-border-light-grey w3-padding-16">
-                            Projects
+                        <h3
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="w3-border-bottom w3-border-light-grey w3-padding-16"
+                        >
+                            {intl.formatMessage({ id: "projects" })}
                         </h3>
                     </div>
 
                     <div className="w3-row-padding">{projects}</div>
 
                     <div className="w3-container w3-padding-32" id="about">
-                        <h3 className="w3-border-bottom w3-border-light-grey w3-padding-16">
-                            About
+                        <h3
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="w3-border-bottom w3-border-light-grey w3-padding-16"
+                        >
+                            {intl.formatMessage({ id: "about" })}
                         </h3>
-                        <p>{data.contentfulAbout.description.description}</p>
+                        <p dir={intl.locale == "ar" ? "rtl" : ""}>
+                            {intl.locale == "ar"
+                                ? data.contentfulAbout.arabicDescription
+                                      .arabicDescription
+                                : data.contentfulAbout.description.description}
+                        </p>
                     </div>
 
                     <div className="w3-row-padding w3-grayscale">{members}</div>
 
                     <div className="w3-container w3-padding-32" id="contact">
-                        <h3 className="w3-border-bottom w3-border-light-grey w3-padding-16">
-                            Contact
+                        <h3
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="w3-border-bottom w3-border-light-grey w3-padding-16"
+                        >
+                            {intl.formatMessage({ id: "contact" })}
                         </h3>
-                        <p>
-                            Lets get in touch and talk about your next project.
+                        <p dir={intl.locale == "ar" ? "rtl" : ""}>
+                            {intl.formatMessage({ id: "contactInfo" })}
                         </p>
                         <form action="/action_page.php" target="_blank">
                             <input
+                                dir={intl.locale == "ar" ? "rtl" : ""}
                                 className="w3-input w3-border"
                                 type="text"
-                                placeholder="Name"
+                                placeholder={intl.formatMessage({
+                                    id: "name",
+                                })}
                                 required
                                 name="Name"
                             />
                             <input
+                                dir={intl.locale == "ar" ? "rtl" : ""}
                                 className="w3-input w3-section w3-border"
                                 type="text"
-                                placeholder="Email"
+                                placeholder={intl.formatMessage({
+                                    id: "email",
+                                })}
                                 required
                                 name="Email"
                             />
                             <input
+                                dir={intl.locale == "ar" ? "rtl" : ""}
                                 className="w3-input w3-section w3-border"
                                 type="text"
-                                placeholder="Subject"
+                                placeholder={intl.formatMessage({
+                                    id: "subject",
+                                })}
                                 required
                                 name="Subject"
                             />
                             <input
+                                dir={intl.locale == "ar" ? "rtl" : ""}
                                 className="w3-input w3-section w3-border"
                                 type="text"
-                                placeholder="Comment"
+                                placeholder={intl.formatMessage({
+                                    id: "comment",
+                                })}
                                 required
                                 name="Comment"
                             />
-                            <button
-                                className="w3-button w3-black w3-section"
-                                type="submit"
-                            >
-                                <i className="fa fa-paper-plane"></i> SEND
-                                MESSAGE
-                            </button>
+                            <div dir={intl.locale == "ar" ? "rtl" : ""}>
+                                <button
+                                    className="w3-button w3-black w3-section"
+                                    type="submit"
+                                >
+                                    <i className="fa fa-paper-plane"></i>{" "}
+                                    {intl.formatMessage({
+                                        id: "sendMessage",
+                                    })}
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

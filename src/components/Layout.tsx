@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as GatsbyLink } from "gatsby";
-import { useIntl, Link } from "gatsby-plugin-react-intl";
+import { useIntl, Link, changeLocale } from "gatsby-plugin-react-intl";
 import "../styles/w3styles.css";
 
 export default function Layout({ children }) {
@@ -37,7 +37,12 @@ export default function Layout({ children }) {
     ];
 
     const navLinks = navLinksData.map((s) => (
-        <Link key={s.id} to={s.slug} className="mx-2 text-sm my-1">
+        <Link
+            style={{ marginLeft: "10px", marginRight: "10px" }}
+            key={s.id}
+            to={s.slug}
+            className="mx-2 text-sm my-1"
+        >
             {s.name}
         </Link>
     ));
@@ -46,17 +51,28 @@ export default function Layout({ children }) {
         <div className="navigation">
             <div className="w3-top links-container">
                 <div className="w3-bar w3-white w3-wide w3-padding w3-card">
-                    <a href="#home" className="w3-bar-item w3-button">
-                        <b>BR</b> Architects
+                    <a
+                        href="#home"
+                        className="w3-bar-item w3-button w3-hide-small"
+                    >
+                        <b>ES</b> Example Site
                     </a>
-                    <div className="w3-right w3-hide-small">
+                    <div className="w3-right">
                         {navLinks}
-                        <GatsbyLink className="w3-right" to="/en">
+                        <GatsbyLink
+                            style={{ marginLeft: "3px", marginRight: "3px" }}
+                            className="w3-right"
+                            to="/en"
+                        >
                             EN
                         </GatsbyLink>
-                        /
-                        <GatsbyLink className="w3-right" to="/pl">
-                            PL
+                        {"/"}
+                        <GatsbyLink
+                            style={{ marginLeft: "3px", marginRight: "3px" }}
+                            className="w3-right"
+                            to="/ar"
+                        >
+                            AR
                         </GatsbyLink>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ require("dotenv").config({
 module.exports = {
     siteMetadata: {
         title: "Static Website Starter",
-        description: `Typescript + Tailwind CSS + Styled-Components + starter to kickoff your project.`,
+        description: `Static website.`,
         author: `Mateusz Szostek`,
         keywords: `gatsby, template`,
         siteUrl: `https://awesome-static-gatsby-template.netlify.app/`,
@@ -13,8 +13,6 @@ module.exports = {
     plugins: [
         `gatsby-plugin-gatsby-cloud`,
         `gatsby-plugin-offline`,
-        "gatsby-plugin-postcss",
-        "gatsby-plugin-styled-components",
         "gatsby-plugin-typescript",
         "gatsby-plugin-image",
         "gatsby-plugin-react-helmet",
@@ -101,22 +99,6 @@ module.exports = {
                 spaceId: process.env.GATSBY_CONTENTFUL_SPACE_ID,
                 // Learn about environment variables: https://gatsby.dev/env-vars
                 accessToken: process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN,
-            },
-        },
-        {
-            resolve: `gatsby-plugin-purgecss`,
-            options: {
-                printRejected: true, // Print removed selectors and processed file names
-                develop: true, // Enable while using `gatsby develop`
-                tailwind: true, // Enable tailwindcss support
-                // whitelist: ['whitelist'], // Don't remove this selector
-                ignore: [
-                    "/customStyles.css",
-                    "prismjs/",
-                    "docsearch.js/",
-                    "global.css",
-                ], // Ignore files/folders
-                // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
             },
         },
     ],

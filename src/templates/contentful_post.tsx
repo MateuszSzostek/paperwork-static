@@ -5,6 +5,7 @@ import Head from "../components/Head";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { useIntl } from "gatsby-plugin-react-intl";
 
 export const query = graphql`
     query($slug: String!) {
@@ -12,13 +13,27 @@ export const query = graphql`
             date(formatString: "MMMM Do, YYYY")
             slug
             title
+            arabicTitle
             description
+            arabicDescription
             keywords
+            keywordsArabic
             author
+            arabicAuthor
             picture {
                 gatsbyImageData(layout: FULL_WIDTH)
             }
             post {
+                raw
+                references {
+                    ... on ContentfulAsset {
+                        __typename
+                        contentful_id
+                        gatsbyImageData(layout: FULL_WIDTH)
+                    }
+                }
+            }
+            arabicPost {
                 raw
                 references {
                     ... on ContentfulAsset {
@@ -34,6 +49,7 @@ export const query = graphql`
 
 const contentful_post: React.FC = (props) => {
     const post = props.data.contentfulBlogPost.post;
+    const arabicPost = props.data.contentfulBlogPost.arabicPost;
     const options = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -48,6 +64,8 @@ const contentful_post: React.FC = (props) => {
         },
     };
     const output = renderRichText(post, options);
+    const arabicOutput = renderRichText(arabicPost, options);
+    const intl = useIntl();
     return (
         <Layout>
             <Head
@@ -58,8 +76,13 @@ const contentful_post: React.FC = (props) => {
             />
             <div className="blog-list-container">
                 <div className=" mx-10px">
-                    <h2 className="post-list-title font-semibold">
-                        {props.data.contentfulBlogPost.title}
+                    <h2
+                        dir={intl.locale == "ar" ? "rtl" : ""}
+                        className="post-list-title font-semibold"
+                    >
+                        {intl.locale == "ar"
+                            ? props.data.contentfulBlogPost.arabicTitle
+                            : props.data.contentfulBlogPost.title}
                     </h2>
                     <GatsbyImage
                         className="post-list-image"
@@ -70,15 +93,26 @@ const contentful_post: React.FC = (props) => {
                                 .gatsbyImageData
                         }
                     />
-                    <span className="post-author">
-                        {props.data.contentfulBlogPost.author}
-                    </span>
-                    <p className="post-date">
+                    <p
+                        dir={intl.locale == "ar" ? "rtl" : ""}
+                        className="post-author"
+                    >
+                        {intl.locale == "ar"
+                            ? props.data.contentfulBlogPost.arabicAuthor
+                            : props.data.contentfulBlogPost.author}
+                    </p>
+                    <p
+                        dir={intl.locale == "ar" ? "rtl" : ""}
+                        className="post-date"
+                    >
                         {" "}
                         {props.data.contentfulBlogPost.date}
                     </p>
-                    <div className="rounded-md bg-white bg-opacity-30">
-                        {output}
+                    <div
+                        dir={intl.locale == "ar" ? "rtl" : ""}
+                        className="rounded-md bg-white bg-opacity-30"
+                    >
+                        {intl.locale == "ar" ? arabicOutput : output}
                     </div>
                 </div>
             </div>
