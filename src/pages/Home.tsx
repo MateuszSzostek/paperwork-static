@@ -250,10 +250,6 @@ const Home: React.FC = ({}) => {
                         </form>
                     </div>
                 </div>
-
-                <footer className="w3-center w3-black w3-padding-16">
-                    <p></p>
-                </footer>
             </div>
         </Layout>
     );
