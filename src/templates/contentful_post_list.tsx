@@ -31,6 +31,7 @@ export const query = graphql`
 const contentful_post_list: React.FC = (props) => {
     const posts = props.data.allContentfulBlogPost.edges;
     const intl = useIntl();
+
     return (
         <Layout>
             <Head
@@ -49,7 +50,12 @@ const contentful_post_list: React.FC = (props) => {
                         <PostCard
                             key={s.node.id}
                             image={s.node.picture}
-                            slug={"/blog/" + s.node.slug}
+                            slug={
+                                "/blog/" +
+                                (s.node.slug === null
+                                    ? s.node.title.replace(" ", "-")
+                                    : s.node.slug)
+                            }
                             tags={s.node.tags}
                             title={s.node.title}
                             desc={s.node.description}

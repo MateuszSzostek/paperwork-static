@@ -51,6 +51,32 @@ const contentful_post: React.FC = (props) => {
     if (typeof props.data !== "undefined") {
         const post = props.data.contentfulBlogPost.post;
         const arabicPost = props.data.contentfulBlogPost.arabicPost;
+        if (
+            props.data.contentfulBlogPost.post === null ||
+            props.data.contentfulBlogPost.arabicPost === null
+        ) {
+            return (
+                <>
+                    <p style={{ fontSize: "48" }}>
+                        The post is empty, please complete it on the contentful
+                        platform.
+                    </p>
+                </>
+            );
+        }
+        if (
+            props.data.contentfulBlogPost.title === null ||
+            props.data.contentfulBlogPost.arabictitle === null
+        ) {
+            return (
+                <>
+                    <p style={{ fontSize: "48" }}>
+                        The title is empty, please add it in contentful
+                        platform.
+                    </p>
+                </>
+            );
+        }
         const options = {
             renderNode: {
                 [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -134,10 +160,10 @@ const contentful_post: React.FC = (props) => {
     }
     return (
         <>
-            <div>
+            <p style={{ fontSize: "48" }}>
                 Contentful content was loaded incorrectly. The form is probably
                 empty.
-            </div>
+            </p>
         </>
     );
 };
