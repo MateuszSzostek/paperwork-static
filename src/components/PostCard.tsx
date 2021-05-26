@@ -30,13 +30,22 @@ const PostCard: React.FC<Props> = ({
     return (
         <>
             <div className="card-wrapper mx-10px">
-                <div>
+                {image == null ? (
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "320px",
+                            border: "1px solid black",
+                        }}
+                    ></div>
+                ) : (
                     <GatsbyImage
-                        image={image}
+                        image={image.gatsbyImageData}
                         alt="Blog post image"
                         className="post-list-image"
                     />
-                </div>
+                )}
+
                 <div
                     dir={intl.locale == "ar" ? "rtl" : ""}
                     className="post-title"

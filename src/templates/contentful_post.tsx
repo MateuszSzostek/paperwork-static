@@ -48,75 +48,97 @@ export const query = graphql`
 `;
 
 const contentful_post: React.FC = (props) => {
-    const post = props.data.contentfulBlogPost.post;
-    const arabicPost = props.data.contentfulBlogPost.arabicPost;
-    const options = {
-        renderNode: {
-            [BLOCKS.EMBEDDED_ASSET]: (node) => {
-                return (
-                    <GatsbyImage
-                        alt="Contentful post image"
-                        style={{ width: "100%", height: "600px" }}
-                        image={node.data.target.gatsbyImageData}
-                    />
-                );
+    if (typeof props.data !== "undefined") {
+        const post = props.data.contentfulBlogPost.post;
+        const arabicPost = props.data.contentfulBlogPost.arabicPost;
+        const options = {
+            renderNode: {
+                [BLOCKS.EMBEDDED_ASSET]: (node) => {
+                    return (
+                        <GatsbyImage
+                            alt="Contentful post image"
+                            style={{ width: "100%", height: "600px" }}
+                            image={node.data.target.gatsbyImageData}
+                        />
+                    );
+                },
             },
-        },
-    };
-    const output = renderRichText(post, options);
-    const arabicOutput = renderRichText(arabicPost, options);
-    const intl = useIntl();
-    return (
-        <Layout>
-            <Head
-                title={props.data.contentfulBlogPost.title}
-                description={props.data.contentfulBlogPost.description}
-                keywords={props.data.contentfulBlogPost.keywords}
-                author={props.data.contentfulBlogPost.author}
-            />
-            <div className="blog-list-container">
-                <div className=" mx-10px">
-                    <h2
-                        dir={intl.locale == "ar" ? "rtl" : ""}
-                        className="post-list-title font-semibold"
-                    >
-                        {intl.locale == "ar"
-                            ? props.data.contentfulBlogPost.arabicTitle
-                            : props.data.contentfulBlogPost.title}
-                    </h2>
-                    <GatsbyImage
-                        className="post-list-image"
-                        alt="Contentful post image"
-                        style={{ width: "100%", height: "600px" }}
-                        image={
-                            props.data.contentfulBlogPost.picture
-                                .gatsbyImageData
-                        }
-                    />
-                    <p
-                        dir={intl.locale == "ar" ? "rtl" : ""}
-                        className="post-author"
-                    >
-                        {intl.locale == "ar"
-                            ? props.data.contentfulBlogPost.arabicAuthor
-                            : props.data.contentfulBlogPost.author}
-                    </p>
-                    <p
-                        dir={intl.locale == "ar" ? "rtl" : ""}
-                        className="post-date"
-                    >
-                        {" "}
-                        {props.data.contentfulBlogPost.date}
-                    </p>
-                    <div
-                        dir={intl.locale == "ar" ? "rtl" : ""}
-                        className="rounded-md bg-white bg-opacity-30"
-                    >
-                        {intl.locale == "ar" ? arabicOutput : output}
+        };
+        const output = renderRichText(post, options);
+        const arabicOutput = renderRichText(arabicPost, options);
+        const intl = useIntl();
+        return (
+            <Layout>
+                <Head
+                    title={props.data.contentfulBlogPost.title}
+                    description={props.data.contentfulBlogPost.description}
+                    keywords={props.data.contentfulBlogPost.keywords}
+                    author={props.data.contentfulBlogPost.author}
+                />
+                <div className="blog-list-container">
+                    <div className=" mx-10px">
+                        <h2
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="post-list-title font-semibold"
+                        >
+                            {intl.locale == "ar"
+                                ? props.data.contentfulBlogPost.arabicTitle
+                                : props.data.contentfulBlogPost.title}
+                        </h2>
+
+                        {props.data.contentfulBlogPost.picture == null ? (
+                            <div
+                                style={{
+                                    width: "100%",
+                                    height: "320px",
+                                    border: "1px solid black",
+                                }}
+                            ></div>
+                        ) : (
+                            <GatsbyImage
+                                className="post-list-image"
+                                alt="Contentful post image"
+                                style={{ width: "100%", height: "600px" }}
+                                image={
+                                    props.data.contentfulBlogPost.picture
+                                        .gatsbyImageData
+                                }
+                            />
+                        )}
+
+                        <p
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="post-author"
+                        >
+                            {intl.locale == "ar"
+                                ? props.data.contentfulBlogPost.arabicAuthor
+                                : props.data.contentfulBlogPost.author}
+                        </p>
+                        <p
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="post-date"
+                        >
+                            {" "}
+                            {props.data.contentfulBlogPost.date}
+                        </p>
+                        <div
+                            dir={intl.locale == "ar" ? "rtl" : ""}
+                            className="rounded-md bg-white bg-opacity-30"
+                        >
+                            {intl.locale == "ar" ? arabicOutput : output}
+                        </div>
                     </div>
                 </div>
+            </Layout>
+        );
+    }
+    return (
+        <>
+            <div>
+                Contentful content was loaded incorrectly. The form is probably
+                empty.
             </div>
-        </Layout>
+        </>
     );
 };
 

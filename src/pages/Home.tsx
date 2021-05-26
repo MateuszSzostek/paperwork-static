@@ -81,21 +81,42 @@ const Home: React.FC = ({}) => {
                     {intl.locale == "ar" ? s.node.arabicTitle : s.node.title}
                 </div>
 
-                <GatsbyImage
-                    style={{ width: "100%", height: "260px" }}
-                    alt={"Sample Work"}
-                    image={s.node.picture.gatsbyImageData}
-                />
+                {s.node.picture == null ? (
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "260px",
+                            border: "1px solid black",
+                        }}
+                    ></div>
+                ) : (
+                    <GatsbyImage
+                        style={{ width: "100%", height: "260px" }}
+                        alt={"Sample Work"}
+                        image={s.node.picture.gatsbyImageData}
+                    />
+                )}
             </div>
         </div>
     ));
     const members = data.allContentfulMember.edges.map((s, idx) => (
         <div key={idx} className="w3-col l3 m6 w3-margin-bottom">
-            <GatsbyImage
-                style={{ width: "100%", height: "260px" }}
-                alt={"Sample Work"}
-                image={s.node.photo.gatsbyImageData}
-            />
+            {s.node.photo == null ? (
+                <div
+                    style={{
+                        width: "100%",
+                        height: "260px",
+                        border: "1px solid black",
+                    }}
+                ></div>
+            ) : (
+                <GatsbyImage
+                    style={{ width: "100%", height: "260px" }}
+                    alt={"Sample Work"}
+                    image={s.node.photo.gatsbyImageData}
+                />
+            )}
+
             <h3 dir={intl.locale == "ar" ? "rtl" : ""}>
                 {intl.locale == "ar" ? s.node.arabicName : s.node.name}
             </h3>

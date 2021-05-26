@@ -48,7 +48,7 @@ const contentful_post_list: React.FC = (props) => {
                     {posts.map((s) => (
                         <PostCard
                             key={s.node.id}
-                            image={s.node.picture.gatsbyImageData}
+                            image={s.node.picture}
                             slug={"/blog/" + s.node.slug}
                             tags={s.node.tags}
                             title={s.node.title}
