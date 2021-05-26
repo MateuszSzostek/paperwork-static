@@ -2,7 +2,6 @@ import { graphql } from "gatsby";
 import React from "react";
 import Layout from "../components/Layout";
 import Head from "../components/Head";
-import Img from "gatsby-image";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { renderRichText } from "gatsby-source-contentful/rich-text";
 import { GatsbyImage } from "gatsby-plugin-image";

@@ -3,8 +3,6 @@ import React from "react";
 import Layout from "../components/Layout";
 import Head from "../components/Head";
 import PostCard from "../components/PostCard";
-import Pager from "../components/Pager";
-import tw from "twin.macro";
 
 export const query = graphql`
     query {
@@ -25,9 +23,7 @@ export const query = graphql`
         }
     }
 `;
-const BlogGrid = tw.div`
-  grid md:grid-cols-12
-`;
+
 const contentful_post_list: React.FC = (props) => {
     const posts = props.data.allContentfulBlogPost.edges;
     return (

@@ -3,7 +3,6 @@ const { paginate } = require("gatsby-awesome-pagination");
 
 module.exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions;
-    const articleTemplate = path.resolve("./src/templates/md_post.tsx");
 
     const contentfulTemplate = path.resolve(
         "./src/templates/contentful_post.tsx"
@@ -17,46 +16,6 @@ module.exports.createPages = async ({ graphql, actions }) => {
                 edges {
                     node {
                         slug
-                    }
-                }
-            }
-        }
-    `);
-    const res = await graphql(`
-        query MyQuery {
-            allMarkdownRemark(
-                filter: { fileAbsolutePath: { regex: "/(data)/(md_posts)/" } }
-            ) {
-                edges {
-                    node {
-                        frontmatter {
-                            slug
-                        }
-                    }
-                }
-            }
-        }
-    `);
-    const resPost = await graphql(`
-        query MyQuery {
-            allMarkdownRemark(
-                filter: { fileAbsolutePath: { regex: "/(data)/(md_posts)/" } }
-            ) {
-                edges {
-                    node {
-                        html
-                        frontmatter {
-                            date
-                            title
-                            slug
-                            tags
-                            shortDesc
-                            id
-                            postImage {
-                                name
-                                extension
-                            }
-                        }
                     }
                 }
             }

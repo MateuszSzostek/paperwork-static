@@ -1,7 +1,5 @@
 import React from "react";
-import Img from "gatsby-image";
-import { Link } from "gatsby-plugin-intl";
-import tw from "twin.macro";
+import { Link } from "gatsby-plugin-react-intl";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 interface Props {
@@ -13,19 +11,6 @@ interface Props {
     slug: string;
     author: string;
 }
-const CardWrapper = tw.div`bg-white bg-opacity-30 my-5 p-4 rounded-md md:(flex flex-row) z-0`;
-const Row = tw.div`
-  md:(flex flex-row)`;
-const Col = tw.div`
-  flex flex-col relative`;
-const Date = tw.p`
-  uppercase mr-3 font-semibold`;
-const Tags = tw.p`
-  uppercase text-purple-500 font-semibold`;
-const PostTitle = tw.h3`
-  text-xl font-bold my-2`;
-const ReadMore = tw(Link)`
-  text-blue-800 absolute -bottom-1`;
 
 const PostCard: React.FC<Props> = ({
     title,

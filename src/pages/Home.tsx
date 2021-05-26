@@ -1,8 +1,7 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Head from "../components/Head";
-import tw from "twin.macro";
-import { useIntl } from "gatsby-plugin-intl";
+import { useIntl } from "gatsby-plugin-react-intl";
 import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 
@@ -45,10 +44,17 @@ const Home: React.FC = ({}) => {
             }
         }
     `);
+    /*
     const landingImage = data.contentfulLandingImage.picture.gatsbyImageData;
     const landingAlt = data.contentfulLandingImage.altAttribute;
-    const projects = data.allContentfulProject.edges.map((s) => (
-        <div className="w3-col l3 m6 w3-margin-bottom">
+    <GatsbyImage
+        style={{ width: "100%", height: "90vh" }}
+        alt={landingAlt}
+        image={landingImage}
+    />;
+    */
+    const projects = data.allContentfulProject.edges.map((s, idx) => (
+        <div key={idx} className="w3-col l3 m6 w3-margin-bottom">
             <div className="w3-display-container">
                 <div
                     style={{ zIndex: 100 }}
@@ -56,20 +62,19 @@ const Home: React.FC = ({}) => {
                 >
                     {s.node.title}
                 </div>
+
                 <GatsbyImage
                     style={{ width: "100%", height: "260px" }}
-                    key={s.node.id}
                     alt={"Sample Work"}
                     image={s.node.picture.gatsbyImageData}
                 />
             </div>
         </div>
     ));
-    const members = data.allContentfulMember.edges.map((s) => (
-        <div className="w3-col l3 m6 w3-margin-bottom">
+    const members = data.allContentfulMember.edges.map((s, idx) => (
+        <div key={idx} className="w3-col l3 m6 w3-margin-bottom">
             <GatsbyImage
                 style={{ width: "100%", height: "260px" }}
-                key={s.node.id}
                 alt={"Sample Work"}
                 image={s.node.photo.gatsbyImageData}
             />
@@ -98,21 +103,8 @@ const Home: React.FC = ({}) => {
                     style={{ maxWidth: "1500px" }}
                     id="home"
                 >
-                    <GatsbyImage
-                        style={{ width: "100%", height: "90vh" }}
-                        alt={landingAlt}
-                        image={landingImage}
-                    />
-                    <div className="w3-display-middle w3-margin-top w3-center">
-                        <h1 className="w3-xxlarge w3-text-white">
-                            <span className="w3-padding w3-black w3-opacity-min">
-                                <b>BR</b>
-                            </span>
-                            <span className="w3-hide-small w3-text-light-grey w3-black w3-opacity-min">
-                                Architects
-                            </span>
-                        </h1>
-                    </div>
+                    {" "}
+                    X
                 </header>
 
                 <div
@@ -180,13 +172,6 @@ const Home: React.FC = ({}) => {
                                 MESSAGE
                             </button>
                         </form>
-                    </div>
-                    <div className="w3-container">
-                        <img
-                            src="/w3images/map.jpg"
-                            className="w3-image"
-                            style={{ width: "100%" }}
-                        />
                     </div>
                 </div>
 

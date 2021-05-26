@@ -11,15 +11,6 @@ module.exports = {
         siteUrl: `https://awesome-static-gatsby-template.netlify.app/`,
     },
     plugins: [
-        {
-            resolve: `gatsby-plugin-google-gtag`,
-            options: {
-                trackingIds: [process.env.GATSBY_GOOGLE_TRACKING_ID],
-                pluginConfig: {
-                    head: true,
-                },
-            },
-        },
         `gatsby-plugin-gatsby-cloud`,
         `gatsby-plugin-offline`,
         "gatsby-plugin-postcss",
@@ -87,16 +78,20 @@ module.exports = {
             },
         },
         {
-            resolve: `gatsby-plugin-intl`,
+            resolve: `gatsby-plugin-react-intl`,
             options: {
                 // language JSON resource path
                 path: `${__dirname}/src/locales`,
                 // supported language
-                languages: [`en`, `pl`, `ar`],
+                languages: [`en`, `ar`],
                 // language file path
                 defaultLanguage: `en`,
                 // option to redirect to `/ko` when connecting `/`
                 redirect: true,
+                // option for use / as defaultLangauge root path. if your defaultLanguage is `ko`, when `redirectDefaultLanguageToRoot` is true, then it will not generate `/ko/xxx` pages, instead of `/xxx`
+                redirectDefaultLanguageToRoot: false,
+                // paths that you don't want to genereate locale pages, example: ["/dashboard/","/test/**"], string format is from micromatch https://github.com/micromatch/micromatch
+                ignoredPaths: [],
             },
         },
 

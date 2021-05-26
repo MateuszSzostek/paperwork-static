@@ -1,9 +1,4 @@
-import React from 'react';
-import Theme from '../components/theme';
-import Home from './Home';
-const Index = () => (
-  <Theme>
-    <Home/>
-  </Theme>
-);
+import React from "react";
+import Home from "./Home";
+const Index = () => <Home />;
 export default Index;
