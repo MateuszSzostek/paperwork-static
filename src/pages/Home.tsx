@@ -61,6 +61,8 @@ const Home: React.FC = ({}) => {
         image={landingImage}
     />;
     */
+    console.log(process.env.GATSBY_CONTENTFUL_ACCESS_TOKEN);
+    
     const projects = data.allContentfulProject.edges.map((s, idx) => (
         <div key={idx} className="w3-col l3 m6 w3-margin-bottom">
             <div
